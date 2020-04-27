@@ -1,0 +1,73 @@
+<?php
+
+	session_start();
+	if (!isset($_SESSION["RegState"])) {$_SESSION["RegState"] = 0;}else{$_SESSION["RegState"] = 0;}
+    if(isset($_SESSION["Message"])){
+    $_SESSION["Message"]='';
+}
+?>
+<!--
+This is just a check out using git from atom
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>attendUdesign</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
+    <link rel="stylesheet" href="assets/css/Table-With-Search-1.css">
+    <link rel="stylesheet" href="assets/css/Table-With-Search.css">
+    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
+</head>
+
+<body>
+    <div class="team-boxed">
+        <div class="container" style="height: 800px;">
+					<!--a class="float-right" style="color: rgb(49,52,55);" href="php/adminLogin.php">Admin</a-->
+            <div class="intro" style="height: 160px;padding-top: 16px;">
+                <h2 class="text-center">Welcome to AttendU!</h2>
+            </div>
+            <div class="row justify-content-center people" style="margin-right: 0px;width: 480px;min-width: 100%;max-width: 100%;margin-left: 0px;padding: 11px;padding-right: -234px;">
+                <div class="col-md-6 col-lg-4 item">
+                    <div class="box" style="height: 290px;width: 280px;min-width: auto;max-width: auto;margin-right: auto;margin-left: auto;">
+											<img class="img-thumbnail img-fluid d-block" src="assets/img/stu1.png" style="margin-left: 40px;">
+                        <h3 class="name">
+													<a data-toggle="tooltip" data-bs-tooltip="" href="php/studentLogin.php" style="color: rgb(49,52,55);" title="Visit Student Page">
+													<input type="checkbox" data-toggle="tooltip" data-bs-tooltip="" href="Stulogin.html" title="Remember me">Student</a>
+												</h3>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 item">
+					<a data-toggle="tooltip" data-bs-tooltip="" href="php/instructorLogin.php" style="color: rgb(49,52,55);" title="Visit Instructor Page">
+						<div class="d-block box" style="margin-bottom: 0px;width: 280px;max-width: auto;min-width: auto;margin-right: auto;margin-left: auto;"><img class="img-thumbnail img-fluid d-block" src="assets/img/prof1.png" style="height: 161px;margin-left: 40px;">
+							<h3 class="name">
+								Instructor
+							</h3>
+						</div>
+					</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init-1.js"></script>
+    <script src="assets/js/chart.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+    <script src="assets/js/Table-With-Search.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/popup.js"></script>
+</body>
+
+</html>
