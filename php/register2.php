@@ -2,7 +2,14 @@
 	session_start();
 	require_once("config.php");
 
-require 'PHPMailerAutoload.php';
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\SMTP;
+	
+	require 'PHPMailerAutoload.php';
+	require '../PHPMailer-master/src/Exception.php';
+	require '../PHPMailer-master/src/PHPMailer.php';
+	require '../PHPMailer-master/src/SMTP.php';
 
 	//Get the data off web
 	$Email = $_GET["email"];
@@ -22,7 +29,7 @@ require 'PHPMailerAutoload.php';
 	}
 	print "Database connected <br>";
 
-		$query1 = "Select * from User_X2 where Email='$Email'";
+		$query1 = "Select * from user_x2 where Email='$Email'";
 		$result1 = mysqli_query($con, $query1);
     //$row = mysqli_fetch_row($result);
     if(mysqli_num_rows($result1) > 0){
@@ -35,8 +42,8 @@ header("location:../registerForm.html");
 	$Acode = rand(); // get a new activation code
 	$Rdatetime = date("Y-m-d h:i:s"); //this line has a problem
 
-	//this is my USER insted on User_X2 Table name in database
-	$query = "Insert into User_X2 (FirstName,LastName,Email,Acode, "
+	//this is my USER insted on user_x2 Table name in database
+	$query = "Insert into user_x2 (FirstName,LastName,Email,Acode, "
 		."Rdatetime, Status ,type) values ('$FirstName','$LastName','$Email',"
 		."'$Acode','$Rdatetime', 1,$type);";
 	// execute the query
@@ -76,17 +83,16 @@ $mail = new PHPMailer;
 $mail->isSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = EMAIL;                 // SMTP username
-$mail->Password = PASS;                           // SMTP password
+$mail->Username = 'attendu.temple';                 // SMTP username
+$mail->Password = 'Temple123!';                           // SMTP password
 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 587;                                    // TCP port to connect to
 
 
 
-$mail->setFrom(EMAIL, 'Mailer');
-//$mail->addAddress('tuf64734@temple.edu', 'Meet Patel');     // Add a recipient
-//$mail->addAddress('tuf64734@temple.edu');               // Name is optional
-$mail->addReplyTo(EMAIL, 'Information');
+$mail->setFrom('attendu.temple@gmail.com', 'AttendU');
+
+$mail->addReplyTo('attendu.temple@gmail.com', 'Information');
 $mail->SMTPOptions = array(
     'ssl' => array(
         'verify_peer' => false,
@@ -96,11 +102,11 @@ $mail->SMTPOptions = array(
 );
 //$mail->addCC('cc@example.com');
 //$mail->addBCC('bcc@example.com');
-
+//sftp://tug43815@cis-linux2.temple.edu/home/TU/tug43815/public_html/AttendU/Project/php/authenticate.php
 //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 $mail->isHTML(true);                                  // Set email format to HTML
-$msg = "Please click the <a href='http://localhost:8080/public_html/4398/Project/php/authenticate.php?Acode=$Acode&Email=$Email&type=$type'>link</a> to complete registration process.";
+$msg = "Please click the <a href='http://cis-linux2.temple.edu/~tug43815/AttendU/Project/php/authenticate.php?Acode=$Acode&Email=$Email&type=$type'>link</a> to complete registration process.";
 
 $mail->addAddress($Email,"$FirstName $LastName");
 $mail->Subject = "Welcome to AttendU";
@@ -119,7 +125,7 @@ if(!$mail->send()) {
 		$_SESSION["Message"] = "Email sent.";
 		header("location:../loginForm.html"); //by instrctor resisterForm.php
 		exit();
-
+   
 }
 	/*$mail= new PHPMailer(true);
 	try {
@@ -137,7 +143,7 @@ if(!$mail->send()) {
 		$mail->IsHTML(true);
 		$mail->setFrom("cis105223053238@gmail.com", "AttendU"); //add your email to get the eamil and your name
 		$mail->addReplyTo("cis105223053238@gmail.com","AttendU"); //same thing here
-		$msg = "Please click the <a href='http://cis-linux2.temple.edu/~tuf64734/4398/Project/php/authenticate.php?Acode=$Acode&Email=$Email'>link</a> to complete registration process.";
+		$msg = "Please click the <a href='http://cis-linux2.school.edu/~username/yourfolder/Project/php/authenticate.php?Acode=$Acode&Email=$Email'>link</a> to complete registration process.";
 		$mail->addAddress($Email,"$FirstName $LastName");
 		$mail->Subject = "Welcome to AttendU";
 		$mail->Body = $msg;

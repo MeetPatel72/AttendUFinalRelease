@@ -2,9 +2,16 @@
 	session_start();
 	require_once("config.php");
 
-require 'PHPMailerAutoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
-	//Get the data off web
+require 'PHPMailerAutoload.php';
+require '../PHPMailer-master/src/Exception.php';
+require '../PHPMailer-master/src/PHPMailer.php';
+require '../PHPMailer-master/src/SMTP.php';
+
+	//Get the data off web!
 	$Email = $_GET["Email"];
 	$type=$_SESSION["loginRole"];
 	print "Web data ($Email) <br>";
@@ -27,10 +34,10 @@ require 'PHPMailerAutoload.php';
 	}
 	print "Database connected <br>";
 	// Looks for the entered email in the table
-	$sel_query = "SELECT * FROM User_X2 WHERE Email ='$Email' and type='$type'";
+	$sel_query = "SELECT * FROM user_x2 WHERE Email ='$Email' and type='$type'";
 	$result = mysqli_query($con, $sel_query);
 
-	$sql = "UPDATE User_X2 SET Acode='$Acode' WHERE Email = '$Email' and type='$type'";
+	$sql = "UPDATE user_x2 SET Acode='$Acode' WHERE Email = '$Email' and type='$type'";
 	mysqli_query($con, $sql);
 
 	// check for correctness
@@ -53,17 +60,16 @@ $mail = new PHPMailer;
 $mail->isSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = EMAIL;                 // SMTP username
-$mail->Password = PASS;                           // SMTP password
+$mail->Username = 'attendu.temple';                 // SMTP username
+$mail->Password = 'Temple123!';                           // SMTP password
 $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port = 587;                                    // TCP port to connect to
 
 
 
-$mail->setFrom(EMAIL, 'Mailer');
-//$mail->addAddress('tuf64734@temple.edu', 'Meet Patel');     // Add a recipient
-//$mail->addAddress('tuf64734@temple.edu');               // Name is optional
-$mail->addReplyTo(EMAIL, 'Information');
+$mail->setFrom('attendu.temple@gmail.com', 'AttendU');
+
+$mail->addReplyTo('attendu.temple@gmail.com', 'Information');
 $mail->SMTPOptions = array(
     'ssl' => array(
         'verify_peer' => false,
@@ -77,8 +83,8 @@ $mail->SMTPOptions = array(
 //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
 //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 $mail->isHTML(true);                                  // Set email format to HTML
-$msg = "Please click the link to complete registration process:"
-			."http://localhost:8080/public_html/4398/Project/php/authenticate.php?Acode=$Acode&Email=$Email&type=$type";
+ $msg = "Please click the <a href='http://cis-linux2.temple.edu/~tug43815/AttendU/Project/php/authenticate.php?Acode=$Acode&Email=$Email&type=$type'>link</a> to complete registration process.";
+
 
 $mail->addAddress($Email,"$FirstName $LastName");
 $mail->Subject = "Welcome to AttendU";
@@ -110,10 +116,10 @@ if(!$mail->send()) {
 		$mail->Port=465;
 		$mail->SMTPKeepAlive = true;
 		$mail->Mailer = "smtp";
-		$mail->setFrom("tuf64734@temple.edu", "AttendU");
-		$mail->addReplyTo("tuf64734@temple.edu","AttendU");
+		$mail->setFrom("Your email", "AttendU");
+		$mail->addReplyTo("Your email","AttendU");
 		$msg = "Please click the link to complete registration process:"
-			."http://cis-linux2.temple.edu/~tuf64734/4398/Project/php/authenticate.php?Acode=$Acode&Email=$Email";
+			."http://cis-linux2.school.edu/~username/yourfolder/Project/php/authenticate.php?Acode=$Acode&Email=$Email";
 		$mail->addAddress($Email,"$FirstName $LastName");
 		$mail->Subject = "Welcome to (my project)";
 		$mail->Body = $msg;
