@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	require_once("config.php");
-	// Get data off the web:
+	// Get data off the web!
 	$Email = $_POST["email"];
-
+$pass=$_POST["password"];
 	$Password = md5($_POST["password"]);
 	$rememberMe = $_POST["rememberMe"]; // You have to figure how to handle cookies
 	$type=$_SESSION["loginRole"];
@@ -35,6 +35,10 @@
 		header("location:../loginForm.html");
 		exit();
 	}
+
+$row=mysqli_fetch_array($result);
+
+	$_SESSION['loggedname']=$row['FirstName']." ".$row['LastName'] ;
 	$_SESSION["RegState"] = 4; // Login success???
 $_SESSION["logged_email"]=$Email;
 
@@ -42,8 +46,8 @@ if($rememberMe=='1' || $rememberMe=='on')//set cookie for remember me
                     {
                     	$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
                     $hour = time() + 3600 * 24 * 30;
-                    setcookie('username', $Email, $hour);
-                         setcookie('password', $_POST["password"], $hour, '/', $domain, false);
+                    setcookie('username', $Email, $hour, "/", false);
+                         setcookie('pass', $pass, $hour, "/", false);
                     }
 
 	// if $_SESSION["loginRole"] == "admin" ...

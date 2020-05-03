@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once("config.php");
-	// Get data off the web:
+	// Get data off the web!
 	$Email = $_GET["Email"];
 	$Acode = $_GET["Acode"];
 	$type = $_GET["type"];
@@ -18,7 +18,7 @@
 	}
 	print "Database connected <br>";
 	// Build query to check if Email and Acode match?
-	$query = "Select * from User_X2 where Email='$Email' and Acode='$Acode' and type='$type';";
+	$query = "Select * from user_x2 where Email='$Email' and Acode='$Acode' and type='$type';";
 	$result = mysqli_query($con, $query);
 	if (!$result) {
 		$_SESSION["RegState"] = -2;
@@ -38,7 +38,7 @@
 	// Authentication succeeded
 	$Acode = rand(); 	// Replacing the old Acode
 	$Adatetime = date("Y-m-d h:i:s");
-	$query = "Update User_X2 set Acode='$Acode', Adatetime='$Adatetime' where Email='$Email' and type='$type';";
+	$query = "Update user_x2 set Acode='$Acode', Adatetime='$Adatetime' where Email='$Email' and type='$type';";
 	$result = mysqli_query($con, $query);
 	if (!$result) {
 		$_SESSION["RegState"] = -5;
